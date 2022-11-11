@@ -14,24 +14,24 @@ fun main() = runBlocking {
 
     val servidor = Servidor()
 
-    val androides = listOf(Androide("R2D2", servidor), Androide("BB8", servidor))
+    val androides = listOf(Androide("R2D2", PRODUCCION, servidor), Androide("BB8", PRODUCCION, servidor))
 
-    val terminales = listOf(Terminal("Luke", MAX_MUESTRAS), Terminal("Leia", MAX_MUESTRAS))
+    val terminales = listOf(Terminal("Luke", MAX_MUESTRAS, servidor), Terminal("Leia", MAX_MUESTRAS, servidor))
 
-    producerConsumer(androides, terminales, servidor)
+    producerConsumer(androides, terminales)
 
 }
 
-suspend fun producerConsumer(a: List<Androide>, t: List<Terminal>, s: Servidor) = coroutineScope {
+suspend fun producerConsumer(a: List<Androide>, t: List<Terminal>) = coroutineScope {
     a.forEach {
         launch {
-            it.produceMuestras(PRODUCCION)
+            it.produceMuestras()
         }
     }
 
     t.forEach {
         launch {
-            it.recogeMuestra(s)
+            it.recogeMuestra()
         }
     }
 }

@@ -7,6 +7,7 @@ import monitor.Servidor
 data class Terminal(
     var nombre: String,
     val maxMuestras: Int,
+    val servidor: Servidor
 ) {
 
     private var muestrasRecogidas = 0
@@ -14,7 +15,7 @@ data class Terminal(
     private var file = FileController.init()
 
     // run
-    suspend fun recogeMuestra(servidor: Servidor) {
+    suspend fun recogeMuestra() {
         while (muestrasRecogidas < maxMuestras) {
             if (servidor.muestrasDisponibles > 0) {
                 val muestra = servidor.getMuestra()
@@ -28,6 +29,7 @@ data class Terminal(
 
                     println("\t --Informacion agregada de la terminal: $nombre")
                 }
+                delay((1000..1500).random().toLong())
             }
             println("Servidor vacio, Terminal $nombre esperado...")
             delay((1500..3000).random().toLong())

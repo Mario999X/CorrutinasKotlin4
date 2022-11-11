@@ -5,10 +5,10 @@ import monitor.Servidor
 
 data class Androide(
     var nombre: String,
+    val maxMuestras: Int,
     val servidor: Servidor
 ) {
-    // run
-    suspend fun produceMuestras(maxMuestras: Int) {
+    suspend fun produceMuestras() {
         for (i in 1..maxMuestras) {
             val muestra = Muestra(i, nombre)
             servidor.addMuestra(muestra)
